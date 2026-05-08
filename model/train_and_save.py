@@ -19,9 +19,8 @@ data_dev = data[0:1000].T
 Y_val = data_dev[0]
 X_val = data_dev[1:n] / 255.
 
-# CHỈNH SỬA: Giới hạn lượng dữ liệu huấn luyện để máy yếu có thể chạy được (5000 mẫu)
-# Nếu máy bạn chạy được, có thể đổi 6000 thành m để dùng toàn bộ dữ liệu.
-train_limit = min(m, 6000)
+# CHỈNH SỬA: Sử dụng toàn bộ dữ liệu huấn luyện để tăng độ chính xác
+train_limit = m
 data_train = data[1000:train_limit].T
 Y_train = data_train[0]
 X_train = data_train[1:n] / 255.

@@ -9,9 +9,13 @@ from PIL import Image, ImageOps
 app = Flask(__name__)
 CORS(app)
 
+import os
+
 # Tải mô hình
 try:
-    with open('saved_model_weights.pkl', 'rb') as f:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(base_dir, 'saved_model_weights.pkl')
+    with open(model_path, 'rb') as f:
         model_data = pickle.load(f)
     print("Mô hình đã được tải thành công!")
 except FileNotFoundError:

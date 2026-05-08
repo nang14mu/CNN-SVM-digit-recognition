@@ -1,7 +1,9 @@
+# pyrefly: ignore [missing-import]
 import numpy as np
 import pandas as pd
 import pickle
 import os
+# pyrefly: ignore [missing-import]
 import matplotlib.pyplot as plt
 
 # --- 1. TẢI DỮ LIỆU ---
