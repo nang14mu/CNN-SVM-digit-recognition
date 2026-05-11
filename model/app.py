@@ -44,7 +44,8 @@ def conv2d_forward(X, W, b, stride=1, padding=0):
 def maxpool_forward(X, pool_size=2):
     m, c, h, w = X.shape
     out_h, out_w = h // pool_size, w // pool_size
-    X_reshaped = X.reshape(m, c, out_h, pool_size, out_w, pool_size)
+    X_sliced = X[:, :, :out_h*pool_size, :out_w*pool_size]
+    X_reshaped = X_sliced.reshape(m, c, out_h, pool_size, out_w, pool_size)
     return np.max(X_reshaped, axis=(3, 5))
 
 def predict_digit(image_array):
@@ -52,18 +53,24 @@ def predict_digit(image_array):
         return -1
         
     # --- 1. FEATURE EXTRACTION (Mạng Nơ-ron Tích chập - CNN) ---
-    Wc = model_data['cnn']['Wc']
-    bc = model_data['cnn']['bc']
+    Wc1 = model_data['cnn']['Wc1']
+    bc1 = model_data['cnn']['bc1']
+    Wc2 = model_data['cnn']['Wc2']
+    bc2 = model_data['cnn']['bc2']
     
     # image_array có kích thước (28, 28), thêm batch và channel để thành (1, 1, 28, 28)
     A0 = image_array.reshape(1, 1, 28, 28)
     
-    Z1 = conv2d_forward(A0, Wc, bc)
+    Z1 = conv2d_forward(A0, Wc1, bc1)
     A1 = ReLU(Z1)
     A1_pool = maxpool_forward(A1)
     
-    # Flatten thành (1, 1352) để đưa vào SVM
-    feature_vector = A1_pool.reshape(1, -1)
+    Z2 = conv2d_forward(A1_pool, Wc2, bc2)
+    A2 = ReLU(Z2)
+    A2_pool = maxpool_forward(A2)
+    
+    # Flatten thành (1, 400) để đưa vào SVM
+    feature_vector = A2_pool.reshape(1, -1)
     
     # --- 2. CLASSIFICATION (SVM) ---
     scores = np.zeros(10)
