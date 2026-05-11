@@ -18,13 +18,35 @@ Mô hình kết hợp hai phương pháp mạnh mẽ để nhận dạng chữ s
 
 *Lưu ý về thiết kế:* Mặc dù training loss function của CNN ban đầu được thiết kế để phân loại (Softmax) chứ không hoàn toàn tối ưu hóa thuần túy cho chất lượng feature để đưa vào SVM, việc kết hợp với SVM ở tầng cuối vẫn mang lại sự ổn định và độ chính xác phân lớp cực tốt nhờ khả năng tối đa hóa margin của SVM.
 
-## 📊 Kết quả (Accuracy)
+## 📊 Đánh giá Mô hình (Evaluation & Accuracy)
 
-Bằng cách tinh chỉnh thuật toán để tận dụng toàn bộ **42,000 mẫu dữ liệu** trong tập huấn luyện (thay vì chỉ giới hạn ở 5000 mẫu như phiên bản sơ khai), mô hình đã đạt được bước nhảy vọt về khả năng tổng quát hóa (generalization) và độ chính xác tổng thể. Kỹ thuật mini-batch gradient descent đảm bảo tiến trình huấn luyện hiệu quả mà không bị tràn bộ nhớ (RAM overflow).
+Thông qua việc cập nhật kiến trúc lên **2 lớp mạng Tích chập (CNN)** sâu hơn và tinh chỉnh hệ thống mini-batch gradient descent trên toàn bộ **42,000 mẫu dữ liệu**, mô hình đã đạt được khả năng nhận diện hình ảnh và trích xuất đặc trưng cực kỳ hiệu quả, đẩy độ chính xác phân loại của SVM lên một mốc mới.
 
-- **Kiến trúc mạng:** 1 Conv Layer (8 filters, 3x3) + Max Pooling + SVM
-- **Training Data:** 42,000 ảnh kích thước 28x28 (Bộ dữ liệu MNIST qua Kaggle Digit Recognizer)
-- **Độ chính xác kỳ vọng:** ~97%+ (Phụ thuộc vào số vòng lặp và learning rate)
+- **Kiến trúc mạng:** 2 Conv Layers (Conv1: 8 filters, Conv2: 16 filters) + Max Pooling + Flatten + SVM Đa lớp
+- **Tập dữ liệu:** 42,000 ảnh kích thước 28x28 (Bộ dữ liệu MNIST từ Kaggle Digit Recognizer)
+- **Tốc độ:** Tối ưu hóa tính toán ma trận với `NumPy Tensordot`, giúp huấn luyện toàn bộ tập dữ liệu hiệu quả trên CPU mà không bị tràn RAM.
+
+### Kết quả trên tập Validation (1000 mẫu)
+
+- **Accuracy (Độ chính xác chung):** `97.90%`
+- **Macro Average F1-Score:** `0.9783`
+
+**Báo cáo chi tiết từng lớp số:**
+
+| Lớp (Số) | Precision | Recall | F1-Score |
+| :---: | :---: | :---: | :---: |
+| **0** | 0.9796 | 0.9796 | 0.9796 |
+| **1** | 0.9917 | 1.0000 | 0.9959 |
+| **2** | 0.9899 | 0.9423 | 0.9655 |
+| **3** | 0.9767 | 0.9921 | 0.9844 |
+| **4** | 0.9634 | 1.0000 | 0.9814 |
+| **5** | 0.9714 | 0.9714 | 0.9714 |
+| **6** | 0.9664 | 0.9914 | 0.9787 |
+| **7** | 0.9818 | 0.9818 | 0.9818 |
+| **8** | 0.9625 | 0.9747 | 0.9686 |
+| **9** | 1.0000 | 0.9485 | 0.9735 |
+
+> **Phân tích lỗi (Error Analysis):** Kịch bản `evaluate.py` tích hợp sẵn khả năng vẽ Confusion Matrix và hiển thị trực quan các hình ảnh bị dự đoán sai thông qua `matplotlib`, giúp dễ dàng theo dõi và phân tích điểm yếu của mô hình.
 
 ## 🚀 Hướng dẫn Cài đặt & Sử dụng (Installation & Usage)
 
