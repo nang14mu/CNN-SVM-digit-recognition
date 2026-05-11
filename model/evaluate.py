@@ -22,8 +22,8 @@ Y_val = data_dev[0]
 X_val = data_dev[1:n] / 255.
 
 # --- 2. TẢI MÔ HÌNH CNN + SVM ---
-model_path = os.path.join(base_dir, 'saved_model_weights.pkl')
-print("Đang tải mô hình từ file saved_model_weights.pkl...")
+model_path = os.path.join(base_dir, 'cnn_svm_weights.pkl')
+print("Đang tải mô hình từ file cnn_svm_weights.pkl...")
 with open(model_path, 'rb') as f:
     model_data = pickle.load(f)
 

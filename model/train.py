@@ -255,7 +255,7 @@ model_data = {
     ]
 }
 
-save_path = os.path.join(base_dir, 'saved_model_weights.pkl')
+save_path = os.path.join(base_dir, 'cnn_svm_weights.pkl')
 with open(save_path, 'wb') as f:
     pickle.dump(model_data, f)
     

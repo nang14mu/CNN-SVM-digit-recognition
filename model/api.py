@@ -14,12 +14,12 @@ import os
 # Tải mô hình
 try:
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    model_path = os.path.join(base_dir, 'saved_model_weights.pkl')
+    model_path = os.path.join(base_dir, 'cnn_svm_weights.pkl')
     with open(model_path, 'rb') as f:
         model_data = pickle.load(f)
     print("Mô hình đã được tải thành công!")
 except FileNotFoundError:
-    print("Không tìm thấy file saved_model_weights.pkl. Hãy chạy train_and_save.py trước.")
+    print("Không tìm thấy file cnn_svm_weights.pkl. Hãy chạy train.py trước.")
     model_data = None
 
 def ReLU(Z): return np.maximum(Z, 0)

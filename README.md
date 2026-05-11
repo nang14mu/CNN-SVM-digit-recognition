@@ -74,17 +74,17 @@ pip install numpy pandas flask flask-cors
 
 ```bash
 cd model
-python train_and_save.py
+python train.py
 ```
 
-Sau quá trình huấn luyện, file trọng số `saved_model_weights.pkl` sẽ được xuất ra trong thư mục `model`.
+Sau quá trình huấn luyện, file trọng số `cnn_svm_weights.pkl` sẽ được xuất ra trong thư mục `model`.
 
 ### 4. Khởi chạy Backend Server (Flask API)
 
-Vẫn tại thư mục `model` (hoặc thư mục chứa `app.py`), chạy server:
+Vẫn tại thư mục `model` (hoặc thư mục chứa `api.py`), chạy server:
 
 ```bash
-python app.py
+python api.py
 ```
 *Server API sẽ chạy tại: `http://localhost:5000`*
 
