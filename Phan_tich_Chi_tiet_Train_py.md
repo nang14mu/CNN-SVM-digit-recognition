@@ -1,6 +1,5 @@
 # PHÂN TÍCH CHI TIẾT CÁC HÀM, Ý NGHĨA VÀ HÌNH DẠNG (SHAPE) BIẾN TRONG TRAIN.PY
 
-Tài liệu này phân tích chi tiết từng hàm trong file [train.py](file:///d:/Ki_2_nam_3/H%E1%BB%8Dc%20m%C3%A1y/BTL/model/train.py), giải thích ý nghĩa thuật toán, cơ chế hoạt động chi tiết, định dạng đầu vào và cấu trúc hình dạng (shape) của đầu ra. Định dạng tài liệu được tối ưu hóa để có thể xuất trực tiếp sang file Word (.docx).
 
 ---
 
